@@ -150,7 +150,7 @@ class TestPandocRuby < Test::Unit::TestCase
   end
 
   should "have reader and writer constants" do
-    assert_equal PandocRuby::READERS, {
+    readers = {
       "html"      =>  "HTML",
       "latex"     =>  "LaTeX",
       "textile"   =>  "textile",
@@ -160,7 +160,7 @@ class TestPandocRuby < Test::Unit::TestCase
       "rst"       =>  "reStructuredText"
     }
 
-    assert_equal PandocRuby::STRING_WRITERS, {
+    string_writers = {
       "mediawiki"     =>  "MediaWiki markup",
       "html"          =>  "HTML",
       "plain"         =>  "plain",
@@ -185,7 +185,7 @@ class TestPandocRuby < Test::Unit::TestCase
       "asciidoc"      =>  "asciidoc"
     }
 
-    assert_equal PandocRuby::BINARY_WRITERS, {
+    binary_writers = {
       "odt"   => "OpenDocument",
       "docx"  => "Word docx",
       "epub"  => "EPUB V2",
@@ -195,5 +195,17 @@ class TestPandocRuby < Test::Unit::TestCase
     assert_equal PandocRuby::WRITERS, (
       PandocRuby::STRING_WRITERS.merge(PandocRuby::BINARY_WRITERS)
     )
+
+    readers.each do | reader, description |
+      assert_equal description, PandocRuby::READERS[reader]
+    end
+
+    string_writers.each do | writer, description |
+      assert_equal description, PandocRuby::STRING_WRITERS[writer]
+    end
+
+    binary_writers.each do | writer, description |
+      assert_equal description, PandocRuby::BINARY_WRITERS[writer]
+    end
   end
 end
